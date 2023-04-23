@@ -32,6 +32,16 @@ order by Points_redeemed desc
 
 --Q3. What is the average transaction value by top 10 customers in terms of sales?
 
+With Q3 as(
+select TOP 10 b.Customer_ID, sum(a.sale_amount) as Sales
+from Transactions a
+left join Customer b
+on a.USER_ID = b.Customer_ID
+group by b.Customer_ID
+order by sum(sale_amount) desc) 
+
+select round(AVG(Sales),2) Average_Txn_Value from Q3
+
 
 
 
