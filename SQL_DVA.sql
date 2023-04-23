@@ -30,6 +30,9 @@ group by b.Customer_ID, b.Points_redeemed)
 select top 1 *, DENSE_RANK() over (order by Sales) Cus_Rank from Q2
 order by Points_redeemed desc
 
+--Q3. What is the average transaction value by top 10 customers in terms of sales?
+
+
 
 
 
