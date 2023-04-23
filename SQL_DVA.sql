@@ -18,6 +18,18 @@ DENSE_RANK() over (order by Customer_value) Cus_Rank
 from Customer  
 order by Points_redeemed desc
 
+----
+
+With Q2 as(
+select b.Customer_ID, sum(a.sale_amount) as Sales, b.Points_redeemed
+from Transactions a
+left join Customer b
+on a.USER_ID = b.Customer_ID
+group by b.Customer_ID, b.Points_redeemed)
+
+select top 1 *, DENSE_RANK() over (order by Sales) Cus_Rank from Q2
+order by Points_redeemed desc
+
 
 
 
