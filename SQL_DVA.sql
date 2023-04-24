@@ -61,6 +61,8 @@ on a.product_id = b.PRODUCT_ID
 group by b.Category_level2_name_eng
 order by sum(a.sale_amount) desc
 
+--Q5. Find the top 10 product categories by sales and what is their contribution out of overall sales in pecrentage?
+
 
 
 
