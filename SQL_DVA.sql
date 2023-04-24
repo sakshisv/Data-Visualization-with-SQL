@@ -52,6 +52,7 @@ on a.USER_ID = b.Customer_ID
 group by b.Customer_ID
 order by sum(a.sale_amount) desc) x
 
+--Q4. Calculate the profit margin for top 10 product categories (Based on sales)?
 
 
 
