@@ -42,6 +42,16 @@ order by sum(sale_amount) desc)
 
 select round(AVG(Sales),2) Average_Txn_Value from Q3
 
+----
+
+select round(sum(Sales)/sum(No_of_Sales),2) as Average_Txn_Value from (
+select TOP 10 b.Customer_ID, sum(a.sale_amount) as Sales, count(a.sale_number) as No_of_Sales
+from Transactions a
+left join Customer b
+on a.USER_ID = b.Customer_ID
+group by b.Customer_ID
+order by sum(a.sale_amount) desc) x
+
 
 
 
