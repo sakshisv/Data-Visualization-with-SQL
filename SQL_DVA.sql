@@ -8,7 +8,7 @@ select * from Customer
 
 --Q1. How many distinct customers are there who has returned the product at least once?
 
-select * from Transactions
+select distinct USER_ID from Transactions
 where sale_amount < 0
 
 --Q2. Find the top customer who redeemed the most reward points. What is their rank in terms of sales amount?
@@ -53,6 +53,8 @@ group by b.Customer_ID
 order by sum(a.sale_amount) desc) x
 
 --Q4. Calculate the profit margin for top 10 product categories (Based on sales)?
+
+
 
 
 
