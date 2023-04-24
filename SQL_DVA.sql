@@ -54,6 +54,12 @@ order by sum(a.sale_amount) desc) x
 
 --Q4. Calculate the profit margin for top 10 product categories (Based on sales)?
 
+select TOP 10 b.Category_level2_name_eng, round(sum(a.sale_amount),2) as Sales, round((sum(b.cost_price) - sum(a.sale_price)),2) as Profit_Margin
+from Transactions a
+left join Product b
+on a.product_id = b.PRODUCT_ID
+group by b.Category_level2_name_eng
+order by sum(a.sale_amount) desc
 
 
 
