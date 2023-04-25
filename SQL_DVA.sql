@@ -63,6 +63,16 @@ order by sum(a.sale_amount) desc
 
 --Q5. Find the top 10 product categories by sales and what is their contribution out of overall sales in pecrentage?
 
+select Product_Categories, Sales, 
+round((Sales/(select sum(sale_amount) as Overall_Sales from Transactions))*100,2) as Sales_Contribution_Pct from (
+select TOP 10 b.Category_level2_name_eng as Product_Categories, round(sum(a.sale_amount),2) as Sales 
+--(a.sale_amount/(select sum(sale_amount) as Overall_Sales from Transactions))*100 as Total_Sales
+from Transactions a
+left join Product b
+on a.product_id = b.PRODUCT_ID
+group by b.Category_level2_name_eng
+order by sum(a.sale_amount) desc) x
+
 
 
 
