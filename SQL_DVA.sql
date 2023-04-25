@@ -73,6 +73,8 @@ on a.product_id = b.PRODUCT_ID
 group by b.Category_level2_name_eng
 order by sum(a.sale_amount) desc) x
 
+--Q6. Find the top 5 product categories with highest Margins?
+
 
 
 
