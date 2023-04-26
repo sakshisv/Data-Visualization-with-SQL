@@ -90,13 +90,16 @@ order by 3 desc
 
 --Q7. Find the top 5 product categories with highest margin and what is the percentage of contribution out of overall margins .
 
-
+With abc as(
 select TOP 5 b.Category_level2_name_eng, round(sum(a.sale_amount),2) as Sales, round((sum(b.cost_price) - sum(a.sale_price)),2) as Profit_Margin
 from Transactions a
 left join Product b
 on a.product_id = b.PRODUCT_ID
 group by b.Category_level2_name_eng
-order by 3 desc
+order by 3 desc)
+
+select *, round((Profit_Margin/(select sum(Profit_Margin) from abc))*100,2) as Pct_Contribution from abc
+
 
 
 
