@@ -82,6 +82,9 @@ on a.product_id = b.PRODUCT_ID
 group by b.Category_level2_name_eng
 order by 3 desc
 
+--Q7. Find the top 5 product categories with highest margin and what is the percentage of contribution out of overall margins .
+
+
 
 
 
