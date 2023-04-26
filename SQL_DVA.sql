@@ -32,6 +32,12 @@ order by Points_redeemed desc
 
 --Q3. What is the average transaction value by top 10 customers in terms of sales?
 
+select TOP 10 Customer_ID, round(avg(Customer_value),2) as Average_Txn_Value from Customer
+group by Customer_ID
+order by Customer_value desc
+
+----
+
 With Q3 as(
 select TOP 10 b.Customer_ID, sum(a.sale_amount) as Sales
 from Transactions a
@@ -84,6 +90,13 @@ order by 3 desc
 
 --Q7. Find the top 5 product categories with highest margin and what is the percentage of contribution out of overall margins .
 
+
+select TOP 5 b.Category_level2_name_eng, round(sum(a.sale_amount),2) as Sales, round((sum(b.cost_price) - sum(a.sale_price)),2) as Profit_Margin
+from Transactions a
+left join Product b
+on a.product_id = b.PRODUCT_ID
+group by b.Category_level2_name_eng
+order by 3 desc
 
 
 
