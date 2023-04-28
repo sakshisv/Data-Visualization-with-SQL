@@ -123,6 +123,9 @@ on a.product_id = b.PRODUCT_ID
 group by b.Category_level2_name_eng
 order by avg(a.sale_amount) desc
 
+--Q9. What is correlation between number of transactions per month and customer value?
+--Hint : Use corrleation coefficient formula after calculating sales and number of transactions by each month.
+
 
 
 
