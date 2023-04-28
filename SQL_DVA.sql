@@ -113,6 +113,8 @@ group by b.Category_level2_name_eng)
 select TOP 5 *, round((Profit_Margin/(select sum(Profit_Margin) from def)*100),2) as Pct_Contribution from def
 order by Sales desc
 
+--Q8. What are top 10 product categories in terms of average sales and  what is the standard deviation?
+
 
 
 
