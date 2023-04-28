@@ -97,9 +97,11 @@ from Transactions a
 left join Product b
 on a.product_id = b.PRODUCT_ID
 group by b.Category_level2_name_eng
-order by 3 desc)
+order by 2 desc)
 
 select *, round((Profit_Margin/(select sum(Profit_Margin) from abc))*100,2) as Pct_Contribution from abc
+
+----
 
 With def as(
 select b.Category_level2_name_eng, round(sum(a.sale_amount),2) as Sales, round((sum(b.cost_price) - sum(a.sale_price)),2) as Profit_Margin
@@ -108,8 +110,9 @@ left join Product b
 on a.product_id = b.PRODUCT_ID
 group by b.Category_level2_name_eng)
 
-select top 5 *, round(Profit_Margin/(select sum(Profit_Margin) from def),2) as Pct_Contribution from def
+select TOP 5 *, round((Profit_Margin/(select sum(Profit_Margin) from def)*100),2) as Pct_Contribution from def
 order by Sales desc
+
 
 
 
