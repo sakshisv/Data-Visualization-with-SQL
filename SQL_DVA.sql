@@ -115,13 +115,14 @@ order by Sales desc
 
 --Q8. What are top 10 product categories in terms of average sales and what is the standard deviation?
 
-select Product_Categories, Avg_Sales from (
-select TOP 10 b.Category_level2_name_eng as Product_Categories, round(avg(a.sale_amount),2) as Avg_Sales 
+select TOP 10 b.Category_level2_name_eng as Product_Categories, round(avg(a.sale_amount),2) as Avg_Sales,
+round(STDEV(a.sale_amount),2) as Standard_Deviation
 from Transactions a
 left join Product b
 on a.product_id = b.PRODUCT_ID
 group by b.Category_level2_name_eng
-order by avg(a.sale_amount) desc) x
+order by avg(a.sale_amount) desc
+
 
 
 
