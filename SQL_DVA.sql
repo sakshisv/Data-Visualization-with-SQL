@@ -130,6 +130,12 @@ select * from Transactions
 select * from Product
 select * from Customer
 
+select b.Customer_value,
+COUNT(a.sale_number) OVER (PARTITION BY MONTH(a.order_time)) as No_of_Txns
+, * from Transactions a
+left join Customer b
+on a.USER_ID = b.Customer_ID
+
 
 
 
