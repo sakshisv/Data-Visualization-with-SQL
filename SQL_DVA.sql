@@ -141,6 +141,7 @@ from Transactions a
 left join Customer b
 on a.USER_ID = b.Customer_ID
 group by MONTH(a.order_time)
+order by 1 asc
 
 
 
