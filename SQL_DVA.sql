@@ -126,8 +126,9 @@ order by avg(a.sale_amount) desc
 --Q9. What is correlation between number of transactions per month and customer value?
 --Hint : Use corrleation coefficient formula after calculating sales and number of transactions by each month.
 
-
-
+select * from Transactions
+select * from Product
+select * from Customer
 
 
 
