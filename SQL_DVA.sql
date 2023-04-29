@@ -136,7 +136,11 @@ COUNT(a.sale_number) OVER (PARTITION BY MONTH(a.order_time)) as No_of_Txns
 left join Customer b
 on a.USER_ID = b.Customer_ID
 
-
+select MONTH(a.order_time) as Months, count(a.sale_number) as No_of_Txns, round(sum(b.Customer_value),2) as Customer_Value
+from Transactions a
+left join Customer b
+on a.USER_ID = b.Customer_ID
+group by MONTH(a.order_time)
 
 
 
