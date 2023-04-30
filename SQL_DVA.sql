@@ -136,7 +136,7 @@ COUNT(a.sale_number) OVER (PARTITION BY MONTH(a.order_time)) as No_of_Txns
 left join Customer b
 on a.USER_ID = b.Customer_ID
 
-select x.Months, (Avg(No_of_Txns * Customer_Value) - (Avg(No_of_Txns) * Avg(Customer_Value))) / (StDevP(No_of_Txns) * StDevP(Customer_Value)) AS Corr from (
+select x.Months, (Avg(No_of_Txns * Customer_Value) - (Avg(No_of_Txns) * Avg(Customer_Value))) / NULLIF((StDevP(No_of_Txns) * StDevP(Customer_Value)),0) AS Corr from (
 select MONTH(a.order_time) as Months, count(a.sale_number) as No_of_Txns, round(sum(b.Customer_value),2) as Customer_Value
 from Transactions a
 left join Customer b
@@ -145,5 +145,29 @@ group by MONTH(a.order_time))x
 group by x.Months
 --order by 1 asc) x
 
+((tot_sum - (amt_sum * act_sum / _count)) / sqrt((amt_sum_sq - pow(amt_sum, 2.0) / _count) * (act_sum_sq - pow(act_sum, 2.0) / _count)))
 
+select x.Months, (Avg(Customer_Value * No_of_Txns) - (Avg(Customer_Value) * Avg(No_of_Txns))) / NULLIF((StDevP(Customer_Value) * StDevP(No_of_Txns)),0)  AS Corr from (
+select MONTH(a.order_time) as Months, count(a.sale_number) as No_of_Txns, round(sum(b.Customer_value),2) as Customer_Value
+from Transactions a
+left join Customer b
+on a.USER_ID = b.Customer_ID
+group by MONTH(a.order_time))x
+group by x.Months
 
+create view Table1 as 
+select MONTH(a.order_time) as Months, count(a.sale_number) as No_of_Txns, round(sum(b.Customer_value),2) as Customer_Value
+from Transactions a
+left join Customer b
+on a.USER_ID = b.Customer_ID
+group by MONTH(a.order_time)
+
+select * from Table1
+
+With Mean as (
+	select Months, No_of_Txns, Customer_Value,
+	AVG(No_of_Txns) OVER() as Mean_No_of_Txns,
+	AVG(Customer_Value) OVER() as Mean_Customer_Value
+	from Table1
+	
+)
