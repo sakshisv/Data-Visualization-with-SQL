@@ -169,5 +169,18 @@ With Mean as (
 	AVG(No_of_Txns) OVER() as Mean_No_of_Txns,
 	AVG(Customer_Value) OVER() as Mean_Customer_Value
 	from Table1
+),
+Variance as (
+	select AVG(POWER(No_of_Txns - Mean_No_of_Txns, 2)) as Var1
+	AVG(POWER(Customer_Value - Mean_Customer_Value, 2)) as Var2
+	from Mean
+),
+StdDev as (
+	select POWER(Var1, 0.5) as Std1,
+	POWER(Var2, 0.5) as Std2
+	from Variance
+),
+Covariance as (
 	
 )
+
