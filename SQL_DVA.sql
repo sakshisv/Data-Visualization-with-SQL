@@ -155,7 +155,8 @@ on a.USER_ID = b.Customer_ID
 group by MONTH(a.order_time))x
 group by x.Months
 
-create view Table1 as 
+create view 
+Table1 as 
 select MONTH(a.order_time) as Months, count(a.sale_number) as No_of_Txns, round(sum(b.Customer_value),2) as Customer_Value
 from Transactions a
 left join Customer b
@@ -164,27 +165,27 @@ group by MONTH(a.order_time)
 
 select * from Table1
 
-With Mean as (
+WITH Mean AS (
 	select Months, No_of_Txns, Customer_Value,
-	AVG(No_of_Txns) OVER() as Mean_No_of_Txns,
-	AVG(Customer_Value) OVER() as Mean_Customer_Value
+	AVG(No_of_Txns) OVER() as Mean_x1,
+	AVG(Customer_Value) OVER() as Mean_x2
 	from Table1
 ),
 Variance as (
-	select AVG(POWER(No_of_Txns - Mean_No_of_Txns, 2)) as Var1
-	AVG(POWER(Customer_Value - Mean_Customer_Value, 2)) as Var2
+	select AVG(cast(POWER(No_of_Txns - Mean_x1, 2) as bigint)) as Var_x1,
+	AVG(cast(POWER(Customer_Value - Mean_x2, 2) as bigint)) as Var_x2
 	from Mean
 ),
 StdDev as (
-	select POWER(Var1, 0.5) as Std1,
-	POWER(Var2, 0.5) as Std2
+	select POWER(Var_x1, 0.5) as Std_x1,
+	POWER(Var_x2, 0.5) as Std_x2
 	from Variance
 ),
 Covariance as (
-	select AVG((No_of_Txns - Mean_No_of_Txns) * (Customer_Value - Mean_Customer_Value)) as Cov_1_2
+	select AVG((No_of_Txns - Mean_x1) * (Customer_Value - Mean_x2)) as Cov_x1_x2
 	from Mean
 )
 
-select Cov_1_2 / (Std1 * Std2) as Corr_1_2
+select Cov_x1_x2 / (Std_x1 * Std_x2) as Corr_x1_x2
 from Covariance, StdDev
 
