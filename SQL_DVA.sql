@@ -181,7 +181,10 @@ StdDev as (
 	from Variance
 ),
 Covariance as (
-	select AVG((No_of_Txns - Mean_No_of_Txns) * (Customer_Value - Mean_Customer_Value)) as Cov_12
+	select AVG((No_of_Txns - Mean_No_of_Txns) * (Customer_Value - Mean_Customer_Value)) as Cov_1_2
 	from Mean
 )
+
+select Cov_1_2 / (Std1 * Std2) as Corr_1_2
+from Covariance, StdDev
 
