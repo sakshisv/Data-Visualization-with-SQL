@@ -163,3 +163,11 @@ from Covariance, StdDev
 
 --Q10. Find the Month over Month (MOM) growth of profit margin in percentage (from 1st month to last month)
 
+select *, ((Profit_Margin - Previous_Profit_Margin)/ Previous_Profit_Margin)*100 from (
+select *, LAG(Profit_Margin) OVER (order by Months) as Previous_Profit_Margin from 
+(select MONTH(a.order_time) as Months, round((sum(b.cost_price) - sum(a.sale_price)),2) as Profit_Margin
+from Transactions a
+left join Product b
+on a.product_id = b.PRODUCT_ID
+group by MONTH(a.order_time)) x) y
+order by 1
