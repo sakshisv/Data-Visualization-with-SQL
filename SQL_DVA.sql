@@ -1,3 +1,5 @@
+------- PRP_DVA Case Study---------
+
 create database PRP_DVA
 
 use PRP_DVA
@@ -172,3 +174,5 @@ on a.product_id = b.PRODUCT_ID
 group by MONTH(a.order_time)) x) y
 order by 1
 
+
+------------------------------------------------------------------------------------------------------------------------------
