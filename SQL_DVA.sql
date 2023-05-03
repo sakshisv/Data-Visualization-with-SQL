@@ -161,3 +161,5 @@ Covariance as (
 select Cov_x1_x2 / (Std_x1 * Std_x2) as Corr_x1_x2
 from Covariance, StdDev
 
+--Q10. Find the Month over Month (MOM) growth of profit margin in percentage (from 1st month to last month)
+
