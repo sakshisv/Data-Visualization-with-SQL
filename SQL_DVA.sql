@@ -61,6 +61,9 @@ select round(AVG(Sales),2) Average_Txn_Value from Q3
 
 ----
 
+-- Using Average Transaction Value formula on tables Customer and Transactions
+-- Average Trasaction Value = Total Sales/ No. of Transactions
+
 select round(sum(Sales)/sum(No_of_Sales),2) as Average_Txn_Value from (
 select TOP 10 b.Customer_ID, sum(a.sale_amount) as Sales, count(a.sale_number) as No_of_Sales
 from Transactions a
@@ -101,18 +104,6 @@ order by 3 desc
 
 --Q7. Find the top 5 product categories with highest margin and what is the percentage of contribution out of overall margins .
 
-With abc as(
-select TOP 5 b.Category_level2_name_eng, round(sum(a.sale_amount),2) as Sales, round((sum(b.cost_price) - sum(a.sale_price)),2) as Profit_Margin
-from Transactions a
-left join Product b
-on a.product_id = b.PRODUCT_ID
-group by b.Category_level2_name_eng
-order by 2 desc)
-
-select *, round((Profit_Margin/(select sum(Profit_Margin) from abc))*100,2) as Pct_Contribution from abc
-
-----
-
 With def as(
 select b.Category_level2_name_eng, round(sum(a.sale_amount),2) as Sales, round((sum(b.cost_price) - sum(a.sale_price)),2) as Profit_Margin
 from Transactions a
@@ -136,6 +127,8 @@ order by avg(a.sale_amount) desc
 --Q9. What is correlation between number of transactions per month and customer value?
 --Hint : Use corrleation coefficient formula after calculating sales and number of transactions by each month.
 
+-- Creating View first to gather all the required columns to use it further to find correlation coefficient.
+
 create view Table1 as 
 select MONTH(a.order_time) as Months, count(a.sale_number) as No_of_Txns, round(sum(b.Customer_value),2) as Customer_Value
 from Transactions a
@@ -145,7 +138,7 @@ group by MONTH(a.order_time)
 
 select * from Table1 order by Months
 
-----
+-- 
 
 WITH Mean AS (
 	select Months, No_of_Txns, Customer_Value,
