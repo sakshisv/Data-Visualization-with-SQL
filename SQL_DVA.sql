@@ -1,4 +1,4 @@
-------- PRP_DVA Case Study---------
+------- DVA Case Study---------
 
 create database PRP_DVA
 
@@ -102,7 +102,7 @@ on a.product_id = b.PRODUCT_ID
 group by b.Category_level2_name_eng
 order by 3 desc
 
---Q7. Find the top 5 product categories with highest margin and what is the percentage of contribution out of overall margins .
+--Q7. Find the top 5 product categories with highest margin and what is the percentage of contribution out of overall margins.
 
 With def as(
 select b.Category_level2_name_eng, round(sum(a.sale_amount),2) as Sales, round((sum(b.cost_price) - sum(a.sale_price)),2) as Profit_Margin
@@ -165,7 +165,7 @@ Covariance as (
 select Cov_x1_x2 / (Std_x1 * Std_x2) as Corr_x1_x2
 from Covariance, StdDev
 
---Q10. Find the Month over Month (MOM) growth of profit margin in percentage (from 1st month to last month)
+--Q10. Find the Month over Month (MOM) growth of profit margin in percentage (from 1st month to last month).
 
 select *, round(coalesce(((Profit_Margin - Previous_Profit_Margin)/ Previous_Profit_Margin)*100, 0), 2) as MoM from (
 select *, LAG(Profit_Margin) OVER (order by Months) as Previous_Profit_Margin from 
@@ -175,6 +175,5 @@ left join Product b
 on a.product_id = b.PRODUCT_ID
 group by MONTH(a.order_time)) x) y
 order by 1
-
 
 ------------------------------------------------------------------------------------------------------------------------------
