@@ -15,7 +15,7 @@ where sale_amount < 0
 
 --Q2. Find the top customer who redeemed the most reward points. What is their rank in terms of sales amount?
 
--- Using Customer table
+-- Using only Customer table
 
 select TOP 1 Customer_ID, Customer_value, Points_redeemed,
 DENSE_RANK() over (order by Customer_value) Cus_Rank
@@ -24,7 +24,7 @@ order by Points_redeemed desc
 
 ----
 
--- Using table Customer and Transactions 
+-- Using tables Customer and Transactions 
 
 With Q2 as(
 select b.Customer_ID, sum(a.sale_amount) as Sales, b.Points_redeemed
@@ -38,12 +38,16 @@ order by Points_redeemed desc
 
 --Q3. What is the average transaction value by top 10 customers in terms of sales?
 
+-- Using only Customer table
+
 select round(avg(Sales),2) as Avg_Txn_Value from (
 select TOP 10 Customer_ID, sum(Customer_value) as Sales from Customer
 group by Customer_ID
 order by 2 desc) x
 
 ----
+
+-- Using tables Customer and Transactions 
 
 With Q3 as(
 select TOP 10 b.Customer_ID, sum(a.sale_amount) as Sales
