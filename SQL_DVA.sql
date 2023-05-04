@@ -138,7 +138,8 @@ group by MONTH(a.order_time)
 
 select * from Table1 order by Months
 
--- 
+-- Using "Table1" View in With Clauses. Further finding Mean, Variance, Standard Deviation and Covariance to find Correlation 
+-- between No. of Transactions and Customer Value.
 
 WITH Mean AS (
 	select Months, No_of_Txns, Customer_Value,
