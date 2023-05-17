@@ -1,4 +1,4 @@
-------- DVA Case Study---------
+------- DVA Case Study ---------
 
 create database PRP_DVA
 
@@ -18,7 +18,7 @@ where sale_amount < 0
 -- Using only Customer table
 
 select TOP 1 Customer_ID, Customer_value, Points_redeemed,
-DENSE_RANK() over (order by Customer_value) Cus_Rank
+DENSE_RANK() over (order by Customer_value desc) Cus_Rank
 from Customer  
 order by Points_redeemed desc
 
